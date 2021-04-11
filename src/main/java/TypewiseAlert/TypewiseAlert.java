@@ -1,13 +1,21 @@
 package TypewiseAlert;
 
+import TypewiseAlert.alert.AlertController;
+import TypewiseAlert.alert.AlertControllerFactory;
 import TypewiseAlert.breach.BreachDecider;
 import TypewiseAlert.model.AlertTarget;
+import TypewiseAlert.model.BatteryCharacter;
 import TypewiseAlert.model.BreachType;
 import TypewiseAlert.model.CoolingType;
 
 public class TypewiseAlert {
+    private final AlertControllerFactory alertControllerFactory;
 
-    public static BreachType classifyTemperatureBreach(
+    public TypewiseAlert(AlertControllerFactory alertControllerFactory){
+        this.alertControllerFactory = alertControllerFactory;
+    }
+
+    public BreachType classifyTemperatureBreach(
         CoolingType coolingType,
         double temperatureInC
     )
@@ -15,7 +23,7 @@ public class TypewiseAlert {
         return BreachDecider.inferBreach(temperatureInC, coolingType.getLowerLimit(), coolingType.getUpperLimit());
     }
 
-    public static void checkAndAlert(
+    public void checkAndAlert(
         AlertTarget alertTarget,
         BatteryCharacter batteryChar,
         double temperatureInC
@@ -23,43 +31,12 @@ public class TypewiseAlert {
     {
 
         BreachType breachType = classifyTemperatureBreach(
-            batteryChar.coolingType, temperatureInC
+            batteryChar.getCoolingType(), temperatureInC
         );
 
-        switch (alertTarget) {
-            case TO_CONTROLLER:
-                sendToController(breachType);
-                break;
-            case TO_EMAIL:
-                sendToEmail(breachType);
-                break;
-        }
+        AlertController alertController = alertControllerFactory.getAlertController(alertTarget);
+        assert alertController != null;
+        alertController.report(breachType);
     }
 
-    public static void sendToController(BreachType breachType) {
-        int header = 0xfeed;
-        System.out.printf("%i : %i\n", header, breachType);
-    }
-
-    public static void sendToEmail(BreachType breachType) {
-        String recepient = "a.b@c.com";
-        switch (breachType) {
-            case TOO_LOW:
-                System.out.printf("To: %s\n", recepient);
-                System.out.println("Hi, the temperature is too low\n");
-                break;
-            case TOO_HIGH:
-                System.out.printf("To: %s\n", recepient);
-                System.out.println("Hi, the temperature is too high\n");
-                break;
-            case NORMAL:
-                break;
-        }
-    }
-
-    public class BatteryCharacter {
-
-        public CoolingType coolingType;
-        public String brand;
-    }
 }
