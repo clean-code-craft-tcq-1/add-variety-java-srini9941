@@ -8,8 +8,10 @@ import TypewiseAlert.model.BreachType;
 public class ConsoleAlertController implements AlertController {
 
     @Override
-    public void report(BreachType breachType) {
+    public String report(BreachType breachType) {
         int header = 0xfeed;
-        System.out.printf("%i : %i\n", header, breachType);
+        String reportMessage = String.format("%d : %s\n", header, breachType.getValue());
+        System.out.println(reportMessage);
+        return reportMessage;
     }
 }

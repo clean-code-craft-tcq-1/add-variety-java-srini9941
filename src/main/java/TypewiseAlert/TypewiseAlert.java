@@ -10,33 +10,29 @@ import TypewiseAlert.model.CoolingType;
 
 public class TypewiseAlert {
     private final AlertControllerFactory alertControllerFactory;
+    private final BreachDecider breachDecider;
 
-    public TypewiseAlert(AlertControllerFactory alertControllerFactory){
+    public TypewiseAlert(AlertControllerFactory alertControllerFactory, BreachDecider breachDecider){
         this.alertControllerFactory = alertControllerFactory;
+        this.breachDecider = breachDecider;
     }
 
-    public BreachType classifyTemperatureBreach(
-        CoolingType coolingType,
-        double temperatureInC
-    )
-    {
-        return BreachDecider.inferBreach(temperatureInC, coolingType.getLowerLimit(), coolingType.getUpperLimit());
-    }
-
-    public void checkAndAlert(
+    public String checkAndAlert(
         AlertTarget alertTarget,
         BatteryCharacter batteryChar,
         double temperatureInC
     )
     {
+        if(batteryChar != null) {
+            BreachType breachType = breachDecider.classifyTemperatureBreach(
+                batteryChar.getCoolingType(), temperatureInC
+            );
 
-        BreachType breachType = classifyTemperatureBreach(
-            batteryChar.getCoolingType(), temperatureInC
-        );
-
-        AlertController alertController = alertControllerFactory.getAlertController(alertTarget);
-        assert alertController != null;
-        alertController.report(breachType);
+            AlertController alertController = alertControllerFactory.getAlertController(alertTarget);
+            assert alertController != null;
+            return alertController.report(breachType);
+        }
+        return null;
     }
 
 }

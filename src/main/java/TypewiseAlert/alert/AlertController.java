@@ -8,5 +8,5 @@ import TypewiseAlert.model.BreachType;
  */
 public interface AlertController {
 
-    void report (BreachType breachType);
+    String report (BreachType breachType);
 }

@@ -8,19 +8,16 @@ import TypewiseAlert.model.BreachType;
 public class EmailAlertController implements AlertController {
 
     @Override
-    public void report(BreachType breachType) {
+    public String report(BreachType breachType) {
         String recepient = "a.b@c.com";
-        switch (breachType) {
-            case TOO_LOW:
-                System.out.printf("To: %s\n", recepient);
-                System.out.println("Hi, the temperature is too low\n");
-                break;
-            case TOO_HIGH:
-                System.out.printf("To: %s\n", recepient);
-                System.out.println("Hi, the temperature is too high\n");
-                break;
-            case NORMAL:
-                break;
+        String toRecepient = String.format("To: %s\n", recepient);
+        String reportMessage;
+        if (breachType != BreachType.NORMAL) {
+            reportMessage = "Hi, the temperature is " + breachType.getValue() + "\n";
+            String reportString = toRecepient + "\n" + reportMessage;
+            System.out.println(reportString);
+            return reportString;
         }
+        return null;
     }
 }
