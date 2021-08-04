@@ -47,7 +47,7 @@ public class TypewiseAlertTest {
 
     }
 
-    private class FakeAlertController implements AlertController {
+    private static class FakeAlertController implements AlertController {
 
         @Override
         public String report(BreachType breachType) {

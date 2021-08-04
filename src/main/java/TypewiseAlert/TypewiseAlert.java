@@ -6,7 +6,6 @@ import TypewiseAlert.breach.BreachDecider;
 import TypewiseAlert.model.AlertTarget;
 import TypewiseAlert.model.BatteryCharacter;
 import TypewiseAlert.model.BreachType;
-import TypewiseAlert.model.CoolingType;
 
 public class TypewiseAlert {
     private final AlertControllerFactory alertControllerFactory;

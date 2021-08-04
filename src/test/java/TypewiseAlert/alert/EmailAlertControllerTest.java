@@ -1,9 +1,5 @@
 package TypewiseAlert.alert;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -16,19 +12,7 @@ import static org.junit.Assert.*;
  * @author Shrinidhi Muralidhar Karanam on 2021-04-13
  */
 @RunWith(Parameterized.class)
-public class EmailAlertControllerTest {
-
-    @Parameterized.Parameters
-    public static Collection<Object[]> breachTypeValues () {
-        BreachType[] breachTypes = BreachType.values();
-        List<Object[]> data = new ArrayList<>();
-        for (BreachType b: breachTypes) {
-            if (b != BreachType.NORMAL) {
-                data.add(new Object[]{b});
-            }
-        }
-        return data;
-    }
+public class EmailAlertControllerTest extends AlertControllerTest{
 
     private final AlertController alertController;
     private final BreachType breachType;
