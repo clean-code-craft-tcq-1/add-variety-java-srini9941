@@ -3,6 +3,8 @@ package TypewiseAlert.alert;
 import TypewiseAlert.model.BreachType;
 
 /**
+ * Console alerter.
+ *
  * @author Shrinidhi Muralidhar Karanam on 2021-04-12
  */
 public class ConsoleAlertController implements AlertController {
