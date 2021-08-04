@@ -15,7 +15,6 @@ import static org.junit.Assert.*;
 /**
  * @author Shrinidhi Muralidhar Karanam on 2021-04-13
  */
-@RunWith(Parameterized.class)
 public class ConsoleAlertControllerTest extends AlertControllerTest{
 
 

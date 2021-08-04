@@ -1,12 +1,14 @@
 package TypewiseAlert.alert;
 
 import TypewiseAlert.model.BreachType;
+import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+@RunWith(Parameterized.class)
 public class AlertControllerTest {
 
 
