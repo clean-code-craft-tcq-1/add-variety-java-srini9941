@@ -19,11 +19,10 @@ public class ConsoleAlertControllerTest extends AlertControllerTest{
 
 
     private final AlertController alertController;
-    private final BreachType breachType;
 
     public ConsoleAlertControllerTest(BreachType breachType) {
+        super(breachType);
         alertController = new ConsoleAlertController();
-        this.breachType = breachType;
     }
 
     @Test

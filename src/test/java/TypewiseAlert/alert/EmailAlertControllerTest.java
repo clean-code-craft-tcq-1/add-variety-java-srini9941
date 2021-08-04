@@ -12,11 +12,10 @@ import static org.junit.Assert.*;
 public class EmailAlertControllerTest extends AlertControllerTest{
 
     private final AlertController alertController;
-    private final BreachType breachType;
 
     public EmailAlertControllerTest(BreachType breachType) {
+        super(breachType);
         alertController = new EmailAlertController();
-        this.breachType = breachType;
     }
 
     @Test
